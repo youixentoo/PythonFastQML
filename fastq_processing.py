@@ -2,7 +2,7 @@
 """
 Created on Thu Sep 24 11:39:22 2020
 
-@author: gebruiker
+@author: Thijs Weenink
 """
 from numpy import mean
 import matplotlib.pyplot as plt
@@ -94,7 +94,7 @@ def file_parser(filename, threshold):
             if score >= threshold: # Filtering based on a certain threshold
                 FastQ_entries.append(FastQ_entry(header, seq, score))
                 
-            if index >= 2000*4:
+            if index >= 8000: # Total lines in file is times 4 as the index only counts the amount of headers.
                 break
         
     return FastQ_entries
@@ -118,6 +118,8 @@ def make_histogram(scores):
     
     plt.hist(scores)
     plt.title("Distribution of Phred scores")
+    plt.xlabel("Quality score")
+    plt.ylabel("Number of entries")
     
 
 
