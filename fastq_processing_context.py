@@ -294,6 +294,12 @@ Context:
     7.
     Ik kan kijken of het berekenen van het gemiddelde sneller kan, bij de rest zie ik
     geen mogelijkheden om het te versnellen.
+    
+    --:
+        In het andere bestand staat een andere uitwerking, deze is 2 tot 4 keer zo snel
+        als wat hier staat.
+    
+
 """
 def file_parser(filename, threshold):
     
@@ -303,7 +309,8 @@ def file_parser(filename, threshold):
         for index, header in enumerate(file):
             seq = file.readline()
             plus = file.readline()
-            score = calc_avg_score(file.readline())
+            
+            score = calc_avg_score(file.readline()) 
             if score >= threshold: # Filtering based on a certain threshold
                 FastQ_entries.append(FastQ_entry(header, seq, score))
                 
@@ -313,7 +320,6 @@ def file_parser(filename, threshold):
                 break
         
     return FastQ_entries
-
 
 
 """
@@ -346,11 +352,13 @@ Context:
     
     7.
     Het loslaten van de 'netheid' kan dit versnellen.
+    
+    --:
+        Versnelde methode in het andere bestand.
 """
 def calc_avg_score(fastq_line):
     score = mean([ord(char)-64 for char in fastq_line])
     return score
-
 
 
 """

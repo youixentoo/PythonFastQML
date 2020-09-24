@@ -4,7 +4,6 @@ Created on Thu Sep 24 11:39:22 2020
 
 @author: Thijs Weenink
 """
-from numpy import mean
 import matplotlib.pyplot as plt
 
 """
@@ -90,7 +89,15 @@ def file_parser(filename, threshold):
         for index, header in enumerate(file):
             seq = file.readline()
             plus = file.readline()
-            score = calc_avg_score(file.readline())
+            
+            """
+            3) Bereken de Phred score voor iedere Read (gebruik het gemiddelde in alle vragen). 
+            Phred score is de ascii score.
+            """
+            score_list = [ord(char)-64 for char in file.readline()]
+            score = sum(score_list)/len(score_list)
+            
+            # score = calc_avg_score(file.readline()) Old
             if score >= threshold: # Filtering based on a certain threshold
                 FastQ_entries.append(FastQ_entry(header, seq, score))
                 
@@ -104,11 +111,12 @@ def file_parser(filename, threshold):
 """
 3) Bereken de Phred score voor iedere Read (gebruik het gemiddelde in alle vragen). 
 Phred score is de ascii score.
+
+-- Old
 """
 def calc_avg_score(fastq_line):
     score = mean([ord(char)-64 for char in fastq_line])
     return score
-
 
 
 """
